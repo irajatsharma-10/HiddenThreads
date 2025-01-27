@@ -3,11 +3,11 @@ import { authOptions } from "../../auth/[...nextauth]/options"; // session requi
 import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";  // Import NextRequest and NextResponse
+import { NextRequest, NextResponse } from "next/server";
 
 // DELETE function with correct typing
-export async function DELETE(req: NextRequest, { params }: { params: { messageid: string } }) {
-    const { messageid } = params; // Extract messageid from params
+export async function DELETE(req: NextRequest, context: { params: { messageid: string } }) {
+    const { messageid } = context.params; // Extract messageid from params
     await dbConnect();
     const session = await getServerSession(authOptions);
 
@@ -21,7 +21,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { messageid
         );
     }
 
-    const user: User = session?.user as User;
+    const user: User = session.user as User;
 
     try {
         const updatedResult = await UserModel.updateOne(
