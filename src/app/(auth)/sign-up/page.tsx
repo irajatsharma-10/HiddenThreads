@@ -5,13 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import debounce from 'lodash/debounce'; // Import debounce from lodash
+import debounce from 'lodash/debounce';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
   Form,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,13 +24,11 @@ import { useRouter } from 'next/navigation';
 import { signUpSchema } from '@/schemas/signUpSchema';
 
 export default function SignUpForm() {
-  // 
   const [username, setUsername] = useState('');
   const [usernameMessage, setUsernameMessage] = useState('');
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Use Lodash debounce to limit the frequency of the username check
   const debounced = debounce((value: string) => setUsername(value), 3000);
 
   const router = useRouter();
@@ -55,12 +52,9 @@ export default function SignUpForm() {
           const response = await axios.get<ApiResponse>(
             `/api/check-username-unique?username=${username}`
           );
-          console.log("response for get response from axios", response);
-
           setUsernameMessage(response.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
-          console.log(axiosError);
           setUsernameMessage(
             axiosError.response?.data.message ?? 'Error checking username'
           );
@@ -86,11 +80,11 @@ export default function SignUpForm() {
 
       setIsSubmitting(false);
     } catch (error) {
-      console.error('Error during sign-up:', error);
-
       const axiosError = error as AxiosError<ApiResponse>;
 
-      const errorMessage = axiosError.response?.data.message ?? 'There was a problem with your sign-up. Please try again.';
+      const errorMessage =
+        axiosError.response?.data.message ??
+        'There was a problem with your sign-up. Please try again.';
 
       toast({
         title: 'Sign Up Failed',
@@ -103,13 +97,15 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className="w-full max-w-md p-8 space-y-4 bg-white dark:bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg shadow-lg">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-gray-800 dark:text-white">
             Join True Feedback
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+          <p className="mb-4 text-gray-600 dark:text-gray-300">
+            Sign up to start your anonymous adventure
+          </p>
         </div>
         <Form {...register}>
           <form onSubmit={register.handleSubmit(onSubmit)} className="space-y-6">
@@ -118,13 +114,14 @@ export default function SignUpForm() {
               control={register.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-300">Username</FormLabel>
                   <Input
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
                       debounced(e.target.value); // Debounce username input
                     }}
+                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                   />
                   {isCheckingUsername && <Loader2 className="animate-spin" />}
                   {!isCheckingUsername && usernameMessage && (
@@ -147,9 +144,12 @@ export default function SignUpForm() {
               control={register.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <Input {...field} name="email" />
-                  <p className='text-muted text-gray-400 text-sm'>We will send you a verification code</p>
+                  <FormLabel className="text-gray-700 dark:text-gray-300">Email</FormLabel>
+                  <Input
+                    {...field}
+                    name="email"
+                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -160,13 +160,22 @@ export default function SignUpForm() {
               control={register.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} name="password" />
+                  <FormLabel className="text-gray-700 dark:text-gray-300">Password</FormLabel>
+                  <Input
+                    type="password"
+                    {...field}
+                    name="password"
+                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                  />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full' disabled={isSubmitting}>
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -179,9 +188,9 @@ export default function SignUpForm() {
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
+          <p className="text-gray-600 dark:text-gray-300">
             Already a member?{' '}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800 dark:text-blue-400">
               Sign in
             </Link>
           </p>

@@ -12,21 +12,25 @@ if (!RESEND_API_KEY) {
 
 export const resend = new Resend(RESEND_API_KEY);
 
+interface Mail{
+    email: string;
+    title: string;
+    body: string; // html or plain text
+}
 
 
-
-import nodemailer from nodemailer;
-const mailSender = async (email,title,body)=>{
+import nodemailer from 'nodemailer';
+const mailSender = async ({email,title,body} : Mail)=>{
     try{
         //transporter
-        let transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
             host : process.env.MAIL_HOST,
             auth:{
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
             }
         })
-        let info =  await transporter.sendMail({
+        const info =  await transporter.sendMail({
             from: "MasterDev || Rj - by Rajat",
             to : `${email}`,
             subject: `${title}`,
@@ -34,8 +38,11 @@ const mailSender = async (email,title,body)=>{
         })
         console.log(info);
         return info;
-    }catch(error){
-        console.error(`Error sending email: ${error.message}`);
+    }catch(error: unknown){
+        if(error instanceof Error){
+            console.error(`Error sending email: ${error.message}`);
+        }
+        console.log("Unexpected error occured while sending the mail")
     }
 }
 

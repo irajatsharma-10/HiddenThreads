@@ -26,7 +26,7 @@ const rootLayout = () => {
   return (
     <div className="max-w-full h-full items-center p-10">
       <Meteors number={30}/>
-      <main className="w-[70%] p-10 flex flex-col items-center space-y-6 mx-auto bg-gradient-to-r from-slate-900 to-slate-700 rounded-md shadow-lg border-2border-red-600 shadow-zinc-600">
+      <main className="w-[70%] p-10 flex flex-col items-center space-y-6 mx-auto bg-gray-200 dark:bg-gradient-to-r from-slate-900 to-slate-700 rounded-md shadow-lg border-2border-red-600 shadow-zinc-600">
         <h1 className="text-4xl font-bold text-center">Where Words are Free, and Identities are Hidden</h1>
         <h3 className="text-lg">
           Send a message, leave a mystery—explore the art of anonymous

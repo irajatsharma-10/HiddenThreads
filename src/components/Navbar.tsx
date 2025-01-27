@@ -22,9 +22,9 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between p-5 bg-[#1F2937] border-b border-gray-600 shadow-md w-full">
-      <a href="#" className="text-3xl font-extrabold text-white hover:text-gray-300 transition-all">
+      <Link href="/" className="text-3xl font-extrabold text-white hover:text-gray-300 transition-all">
         Mystery Message 
-      </a>
+      </Link>
 
       <div className="flex items-center space-x-4">
         {status === "authenticated" ? (

@@ -22,6 +22,7 @@ import axios  from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+
 function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuggestButtonLoading, setIsSuggestButtonLoading] = useState(false);
@@ -62,13 +63,20 @@ function Page() {
       }
 
       form.setValue('content', '');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error);
+      if(error instanceof Error){
+        toast({
+          title: 'Error',
+          description: error.message,
+          variant: 'destructive',
+        });
+      }
       toast({
-        title: "error",
-        description: error.response.data.message,
-        variant: 'destructive',
-      });
+        title: 'Error',
+        description: "Unexpected Error occured",
+        variant: 'destructive'
+      })
     } finally {
       setIsLoading(false);
     }
@@ -85,12 +93,19 @@ function Page() {
       const response = result.data.message.candidates[0].content.parts[0].text;
       setText(response);
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      if(error instanceof Error){
+        toast({
+          title: 'Error',
+          description: error.message,
+          variant: 'destructive',
+        });
+      }
       toast({
         title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-      });
+        description: "Unexpected Error occured",
+        variant: 'destructive'
+      })
     } finally {
       setIsSuggestButtonLoading(false);
     }

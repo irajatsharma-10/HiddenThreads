@@ -1,6 +1,6 @@
 'use client';
 
-import  {MessageCard}  from '@/components/MessageCard';
+import { MessageCard } from '@/components/MessageCard';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
@@ -46,8 +46,7 @@ function UserDashboard() {
       toast({
         title: 'Error',
         description:
-          axiosError.response?.data.message ??
-          'Failed to fetch message settings',
+          axiosError.response?.data.message ?? 'Failed to fetch message settings',
         variant: 'destructive',
       });
     } finally {
@@ -84,16 +83,13 @@ function UserDashboard() {
     [setIsLoading, setMessages, toast]
   );
 
-  // Fetch initial state from the server
   useEffect(() => {
     if (!session || !session.user) return;
 
     fetchMessages();
-
     fetchAcceptMessages();
   }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
 
-  // Handle switch change
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>('/api/accept-messages', {
@@ -109,13 +105,11 @@ function UserDashboard() {
       toast({
         title: 'Error',
         description:
-          axiosError.response?.data.message ??
-          'Failed to update message settings',
+          axiosError.response?.data.message ?? 'Failed to update message settings',
         variant: 'destructive',
       });
     }
   };
-  
 
   if (!session || !session.user) {
     return <div></div>;
@@ -135,17 +129,17 @@ function UserDashboard() {
   };
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white dark:bg-gray-800 rounded w-full max-w-6xl">
+      <h1 className="text-4xl font-bold mb-4 text-black dark:text-white">User Dashboard</h1>
 
       <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
+        <h2 className="text-lg font-semibold mb-2 text-black dark:text-white">Copy Your Unique Link</h2>
         <div className="flex items-center">
           <input
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="input input-bordered w-full p-2 mr-2 bg-gray-100 dark:bg-gray-700"
           />
           <Button onClick={copyToClipboard}>Copy</Button>
         </div>
@@ -158,7 +152,7 @@ function UserDashboard() {
           onCheckedChange={handleSwitchChange}
           disabled={isSwitchLoading}
         />
-        <span className="ml-2">
+        <span className="ml-2 text-black dark:text-white">
           Accept Messages: {acceptMessages ? 'On' : 'Off'}
         </span>
       </div>
@@ -180,7 +174,7 @@ function UserDashboard() {
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message,index) => (
+          messages.map((message, index) => (
             <MessageCard
               key={index}
               message={message}
@@ -188,7 +182,7 @@ function UserDashboard() {
             />
           ))
         ) : (
-          <p>No messages to display.</p>
+          <p className="text-black dark:text-white">No messages to display.</p>
         )}
       </div>
     </div>
