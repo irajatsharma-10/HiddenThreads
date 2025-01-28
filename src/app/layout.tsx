@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={`${inter.className} overflow-y-auto overflow-x-hidden bg-[#1F2937]`}>
+        <body className={`${inter.className} overflow-y-auto overflow-x-hidden dark:bg-[#1F2937] bg-gray-100`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

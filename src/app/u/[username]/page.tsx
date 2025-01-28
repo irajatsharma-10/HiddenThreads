@@ -112,7 +112,7 @@ function Page() {
   }
 
   return (
-    <div className="container mx-auto my-8 p-6 rounded max-w-4xl bg-white">
+    <div className="container mx-auto my-8 p-6 rounded max-w-4xl bg-white dark:bg-gradient-to-r from-slate-900 to-slate-700 ">
       <h1 className="text-4xl font-bold mb-6 text-center">Public Profile Link</h1>
       <Form {...form}>
         <form className="space-y-6" onSubmit={form.handleSubmit(onMessageSubmit)}>

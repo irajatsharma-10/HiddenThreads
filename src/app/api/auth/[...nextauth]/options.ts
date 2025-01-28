@@ -18,6 +18,7 @@ export const authOptions: NextAuthOptions = {
             // defines input fields required during login(Email and Password here)
 
             // this block defines the input fields required by the Credentials Provider in NextAuth.js
+            // credential is only having username and password as the default fields and don't have email or other stuff until you assigned in the credential object
             credentials: {
                 // to access we have to do credentials.identifier.username ( acess via Key name not label name)
                 email: { label: "Email", type: "text"},
@@ -32,7 +33,7 @@ export const authOptions: NextAuthOptions = {
                         // username is not included in the credentials object but the email is 
                         // we get the user from the email
                         $or: [
-                            { email: credentials.identifier },
+                            { email: credentials.identifier},
                             { username: credentials.identifier},
                         ]
                     })

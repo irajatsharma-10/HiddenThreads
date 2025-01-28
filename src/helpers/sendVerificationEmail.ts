@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 export async function sendVerificationEmail(
     email: string,
     username: string,
-    verifyCode: string
+    verifyCode: string,
 ): Promise<ApiResponse> {
     try {
         // Create the transporter
@@ -26,6 +26,8 @@ export async function sendVerificationEmail(
         });
 
         console.log('Message sent: %s', info);
+        console.log("email", email)
+        console.log("verification code", verifyCode)
         return { success: true, message: 'Verification email sent successfully' };
     } catch (error) {
         console.error('Error sending verification email:', error);

@@ -21,15 +21,15 @@ const Navbar = () => {
   const user: User = session?.user;
 
   return (
-    <nav className="flex items-center justify-between p-5 bg-[#1F2937] border-b border-gray-600 shadow-md w-full">
-      <Link href="/" className="text-3xl font-extrabold text-white hover:text-gray-300 transition-all">
+    <nav className="flex items-center justify-between p-5 border-b dark:border-gray-600 shadow-md w-full">
+      <Link href="/" className="text-3xl font-extrabold text-black dark:text-gray-200 dark:hover:text-white  transition-all">
         Mystery Message 
       </Link>
 
       <div className="flex items-center space-x-4">
         {status === "authenticated" ? (
           <>
-            <span className="text-lg font-medium text-white">
+            <span className="text-lg font-medium dark:text-white ">
               Welcome, {user.username || user.email}
             </span>
             <Button onClick={() => signOut()} className="bg-red-700 hover:bg-red-600 text-white rounded-md transition-all">

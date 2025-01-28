@@ -27,13 +27,6 @@ export default function SigninForm() {
 
   const {theme} = useTheme();
 
-  const isDarkMode = theme === 'dark';
-  const containerBg = isDarkMode
-    ? "bg-gradient-to-r from-slate-900 to-slate-700"
-    : "bg-gray-100";
-    const headingText = isDarkMode ? "" : "text-gray-900";
-  // const cardBg = isDarkMode ? "" : "bg-white";
-  // const cardText = isDarkMode ? "" : "text-gray-900";
 
   const register = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -63,10 +56,10 @@ export default function SigninForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className={`w-full max-w-md p-8 space-y-8 rounded-lg shadow-md ${containerBg}`}>
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className={`w-full max-w-md p-8 space-y-8 rounded-lg shadow-md dark:bg-gradient-to-r bg-white from-slate-900 to-slate-700`}>
         <div className="text-center">
-          <h1 className={`text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 ${headingText}`}>
+          <h1 className={`text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 `}>
             Sign In
           </h1>
           <p className="mb-4">Let the mystery begins!</p>
